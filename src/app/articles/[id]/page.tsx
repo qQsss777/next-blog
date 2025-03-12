@@ -1,18 +1,17 @@
-import styles from "../../page.module.css";
-import { promises as fs } from "fs";
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
+import { getFileAsString, getSubFoldersName } from "@/app/lib/directoryUtils";
+import { articlesPath } from "@/app/constants";
+import Header from "@/app/components/header";
 
 type Props = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const articlesPath = "/public/articles";
-
 export async function generateStaticParams(): Promise<{ id: string }[]> {
   try {
-    const folders = await fs.readdir(process.cwd() + articlesPath);
+    const folders = await getSubFoldersName(process.cwd() + articlesPath);
     return folders.map((folder) => {
       return { id: folder };
     });
@@ -41,11 +40,11 @@ export default async function Page({
   try {
     const { id } = await params;
     const path = process.cwd() + articlesPath + "/" + id + "/page.md";
-    const buffer = await fs.readFile(path, { encoding: "utf-8" });
+    const buffer = await getFileAsString(path);
     const nextLineCharacter = process.platform === "win32" ? "\r\n" : "\n";
     const lines = buffer.split(nextLineCharacter);
     console.log(lines);
-    return <div className={styles.page}>{buffer}</div>;
+    return <Header title={id}/>;
   } catch (error) {
     console.error(error);
     notFound();
