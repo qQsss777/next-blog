@@ -7,23 +7,15 @@ import { IoSunny } from "react-icons/io5";
 
 export default function ThemeChanger() {
   const { theme, setTheme } = useTheme();
-  if (theme === "light") {
-    return (
-      <IconButton
-        onClick={() => setTheme("dark")}
-        aria-label="Change display mode"
-      >
-        <FaMoon />
-      </IconButton>
-    );
-  } else {
-    return (
-      <IconButton
-        onClick={() => setTheme("light")}
-        aria-label="Change display mode"
-      >
-        <IoSunny />
-      </IconButton>
-    );
-  }
+  const isDark = theme === "dark";
+  return (
+    <IconButton
+      color={{ base: "#000000", _dark: "#FFFFFF" }}
+      bg={{ base: "#f1f0f0", _dark: "#131313" }}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label="Change display mode"
+    >
+      {isDark ? <IoSunny /> : <FaMoon />}
+    </IconButton>
+  );
 }

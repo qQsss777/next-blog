@@ -32,7 +32,11 @@ export default function DrawerLink({
       onOpenChange={(e) => setOpen(e.open)}
     >
       <Drawer.Trigger asChild>
-        <IconButton aria-label="Open menu">
+        <IconButton
+          aria-label="Open menu"
+          color={{ base: "#000000", _dark: "#FFFFFF" }}
+          bg={{ base: "#f1f0f0", _dark: "#131313" }}
+        >
           <CiMenuBurger />
         </IconButton>
       </Drawer.Trigger>
