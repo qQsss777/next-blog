@@ -1,1 +1,1 @@
-export const articlesPath = "/public/articles";
+export const articlesPath = "/articles";

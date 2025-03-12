@@ -1,13 +1,14 @@
-"use client";
-
 import { Box, Flex } from "@chakra-ui/react";
 import ThemeChanger from "./themeChanger";
+import DrawerLink from "./drawerLink";
 
 interface IHeaderProps {
   title: string;
+  articles: string[];
+  rootPath: string;
 }
 
-export default function Header({ title }: IHeaderProps) {
+export default function Header({ title, articles }: IHeaderProps) {
   return (
     <>
       <Box
@@ -16,7 +17,15 @@ export default function Header({ title }: IHeaderProps) {
         bg={{ base: "#f1f0f0", _dark: "#131313" }}
       >
         <Flex justify="space-between" align="center">
-          <Box>{title}</Box>
+          <Flex align="center" gap="5">
+            <DrawerLink
+              title="Lien vers les articles"
+              rootPath="/"
+              linkTitles={articles}
+              contextPath={"/articles/"}
+            />
+            {title}
+          </Flex>
           <ThemeChanger />
         </Flex>
       </Box>
