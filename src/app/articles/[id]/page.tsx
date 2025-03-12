@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getFileAsString, getSubFoldersName } from "@/app/lib/directoryUtils";
 import { articlesPath } from "@/app/constants";
-import Header from "@/app/components/header";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -44,7 +43,7 @@ export default async function Page({
     const nextLineCharacter = process.platform === "win32" ? "\r\n" : "\n";
     const lines = buffer.split(nextLineCharacter);
     console.log(lines);
-    return <Header title={id} />;
+    return <div>{lines.toString()}</div>;
   } catch (error) {
     console.error(error);
     notFound();
