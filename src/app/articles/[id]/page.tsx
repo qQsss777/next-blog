@@ -44,7 +44,7 @@ export default async function Page({
     const nextLineCharacter = process.platform === "win32" ? "\r\n" : "\n";
     const lines = buffer.split(nextLineCharacter);
     console.log(lines);
-    return <Header title={id}/>;
+    return <Header title={id} />;
   } catch (error) {
     console.error(error);
     notFound();
