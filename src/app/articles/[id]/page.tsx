@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getFileAsString, getSubFoldersName } from "@/app/lib/directoryUtils";
 import { articlesPath } from "@/app/constants";
+import ArticleContainer from "@/app/components/articleContainer";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -42,8 +43,12 @@ export default async function Page({
     const buffer = await getFileAsString(path);
     const nextLineCharacter = process.platform === "win32" ? "\r\n" : "\n";
     const lines = buffer.split(nextLineCharacter);
-    console.log(lines);
-    return <div>{lines.toString()}</div>;
+    return (
+      <ArticleContainer>
+        <div>{lines}</div>
+        <div>{lines}</div>
+      </ArticleContainer>
+    );
   } catch (error) {
     console.error(error);
     notFound();
