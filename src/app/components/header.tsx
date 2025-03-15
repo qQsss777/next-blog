@@ -15,6 +15,11 @@ export default function Header({ title, articles }: IHeaderProps) {
         color={{ base: "#000000", _dark: "#FFFFFF" }}
         p={4}
         bg={{ base: "#f1f0f0", _dark: "#131313" }}
+        position="sticky"
+        top="0"
+        left="0"
+        right="0"
+        zIndex="10"
       >
         <Flex justify="space-between" align="center">
           <Flex align="center" gap="5">
@@ -29,7 +34,6 @@ export default function Header({ title, articles }: IHeaderProps) {
           <ThemeChanger />
         </Flex>
       </Box>
-      <Box p={4}></Box>
     </>
   );
 }
