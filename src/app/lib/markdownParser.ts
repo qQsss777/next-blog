@@ -1,12 +1,5 @@
-type MardownType =
-  | "title"
-  | "subtitle"
-  | "paragraph"
-  | "link"
-  | "code"
-  | "image";
 type IParsedData = {
-  textType: MardownType;
+  textType: keyof HTMLElementTagNameMap;
   content: string;
 };
 
@@ -43,21 +36,30 @@ class MarkdownParser implements IMarkdownParserProperties {
         content,
       });
     });
-    console.log(parsedData);
-    return [];
+    return parsedData;
   };
 
   /**
    * Get text type and new string
    * @param line line data
    */
-  _getTextType = (line: string): [MardownType, string] => {
-    if (line.startsWith("##")) {
-      return ["subtitle", line.replaceAll("#", "")];
-    } else if (line.startsWith("#")) {
-      return ["title", line.replaceAll("#", "")];
+  _getTextType = (line: string): [keyof HTMLElementTagNameMap, string] => {
+    if (line.startsWith("#")) {
+      let titleLevel = 0;
+      const str = line.split("");
+      for (const s of str) {
+        if (s === "#") {
+          titleLevel++;
+        } else {
+          break;
+        }
+      }
+      const htmlSectionTitle =
+        `h${Math.min(titleLevel, 6)}` as keyof HTMLElementTagNameMap;
+      const content = line.substring(titleLevel).trim();
+      return [htmlSectionTitle, content];
     } else {
-      return ["paragraph", line];
+      return ["p", line];
     }
   };
 }
