@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
-import { getFileAsString, getSubFoldersName } from "@/app/lib/directoryUtils";
+import { getSubFoldersName } from "@/app/lib/directoryUtils";
 import { articlesPath } from "@/app/constants";
 import ArticleContainer from "@/app/components/articleContainer";
 
@@ -40,15 +40,7 @@ export default async function Page({
   try {
     const { id } = await params;
     const path = process.cwd() + articlesPath + "/" + id + "/page.md";
-    const buffer = await getFileAsString(path);
-    const nextLineCharacter = process.platform === "win32" ? "\r\n" : "\n";
-    const lines = buffer.split(nextLineCharacter);
-    return (
-      <ArticleContainer>
-        <div>{lines}</div>
-        <div>{lines}</div>
-      </ArticleContainer>
-    );
+    return <ArticleContainer path={path} />;
   } catch (error) {
     console.error(error);
     notFound();
