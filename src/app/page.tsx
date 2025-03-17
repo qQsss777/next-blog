@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 import ArticleContainer from "./components/articleContainer";
-import { homePath } from "./constants";
 import React from "react";
 
 export default async function Home() {
   try {
-    const path = process.cwd() + homePath + "/page.md";
+    console.log();
+    const path = `${process.cwd()}/${process.env.FOLDER_HOME}page.md`;
     return <ArticleContainer path={path} />;
   } catch (error) {
     console.error(error);

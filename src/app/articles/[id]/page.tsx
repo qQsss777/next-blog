@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getSubFoldersName } from "@/app/lib/directoryUtils";
-import { articlesPath } from "@/app/constants";
 import ArticleContainer from "@/app/components/articleContainer";
 
 type Props = {
@@ -11,7 +10,9 @@ type Props = {
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
   try {
-    const folders = await getSubFoldersName(process.cwd() + articlesPath);
+    const folders = await getSubFoldersName(
+      process.cwd() + process.env.FOLDER_ARTICLES,
+    );
     return folders.map((folder) => {
       return { id: folder };
     });
@@ -39,7 +40,7 @@ export default async function Page({
 }) {
   try {
     const { id } = await params;
-    const path = process.cwd() + articlesPath + "/" + id + "/page.md";
+    const path = `${process.cwd()}/${process.env.FOLDER_ARTICLES}${id}/page.md`;
     return <ArticleContainer path={path} />;
   } catch (error) {
     console.error(error);

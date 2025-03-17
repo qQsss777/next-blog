@@ -4,7 +4,6 @@ import "./globals.css";
 import Provider from "./provider";
 import { Flex } from "@chakra-ui/react";
 import Header from "./components/header";
-import { articlesPath } from "./constants";
 import { getSubFoldersName } from "./lib/directoryUtils";
 
 const geistSans = Geist({
@@ -27,7 +26,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const folders = await getSubFoldersName(process.cwd() + articlesPath);
+  const folders = await getSubFoldersName(
+    process.cwd() + process.env.FOLDER_ARTICLES,
+  );
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

@@ -1,0 +1,3 @@
+[submodule "next-blog-data"]
+	path = next-blog-data
+	url = https://github.com/qQsss777/next-blog-data.git
