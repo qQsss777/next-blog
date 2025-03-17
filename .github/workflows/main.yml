@@ -50,9 +50,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          FOLDER_HOME: ${{ secrets.FOLDER_HOME }}
-          FOLDER_ARTICLES: ${{ secrets.ARTICLES }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
