@@ -48,6 +48,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Add variables
+        run: |
+          touch .env
+          echo FOLDER_HOME=${{ secrets.FOLDER_HOME }} >> .env
+          echo FOLDER_ARTICLES=${{ secrets.FOLDER_ARTICLES }} >> .env
+          cat .env
+
       - name: Build
         run: npm run build
 
