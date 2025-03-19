@@ -1,11 +1,13 @@
-type IParsedData = {
+export type IParsedData = {
   textType: keyof HTMLElementTagNameMap;
   content: string;
+  attributes?: Record<string, string>;
+  children?: IParsedData[];
 };
 
 interface IMarkdownParserConstructor {
-  rawData: string;
-  nextLineCharacter: "\r\n" | "\n";
+  rawData: string; //raw data from markodown file
+  nextLineCharacter: "\r\n" | "\n"; // next line character
 }
 
 interface IMarkdownParserProperties extends IMarkdownParserConstructor {
@@ -31,9 +33,14 @@ class MarkdownParser implements IMarkdownParserProperties {
     lines.forEach((line) => {
       if (!line) return;
       const [textType, content] = this._getTextType(line);
+      let children;
+      if (textType === "p") {
+        children = this._getLinkElements(content);
+      }
       parsedData.push({
         textType,
-        content,
+        content: children && children.length > 0 ? "" : content,
+        children: children,
       });
     });
     return parsedData;
@@ -61,6 +68,35 @@ class MarkdownParser implements IMarkdownParserProperties {
     } else {
       return ["p", line];
     }
+  };
+
+  /**
+   * Split line if links are present
+   * @param line line data
+   * @returns
+   */
+  _getLinkElements = (line: string) => {
+    const regexLinks = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+    const elements: IParsedData[] = [];
+    let match;
+    let lineData = line;
+    while ((match = regexLinks.exec(lineData)) !== null) {
+      const lineSplitted = line.split(match[0]);
+      elements.push({
+        textType: "span",
+        content: lineSplitted.shift() as string,
+      });
+      elements.push({
+        textType: "a",
+        content: match[1],
+        attributes: {
+          href: match[2],
+          target: "_blank",
+        },
+      });
+      lineData = lineSplitted.join(",");
+    }
+    return elements;
   };
 }
 export default MarkdownParser;
