@@ -42,6 +42,16 @@ h6 {
   line-height: 1.5;
 }
 
-a{
+a {
   color: dodgerblue;
+}
+
+textarea {
+  font-style: italic;
+  width: 100%;
+  margin: 20px;
+  border-color: grey;
+  border-style: dashed;
+  border-width: 0.1em;
+  padding: 0px 20px;
 }
