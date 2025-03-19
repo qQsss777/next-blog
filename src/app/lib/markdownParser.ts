@@ -36,7 +36,7 @@ class MarkdownParser implements IMarkdownParserProperties {
       const [textType, content] = this._getTextType(line);
       let children;
       if (textType === "p") {
-        children = this._getLinkElements(content);
+        children = this._getOtherElements(content);
       }
       parsedData.push({
         textType,
@@ -76,9 +76,9 @@ class MarkdownParser implements IMarkdownParserProperties {
    * @param line line data
    * @returns list of html data
    */
-  _getLinkElements = (line: string): IParsedData[] => {
+  _getOtherElements = (line: string): IParsedData[] => {
     const regexLinks = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/;
-    const regexCode = /```([^`]+)```/;
+    const regexCode = /```((?:[^`]|`(?!``))*)```/;
     const elements: IParsedData[] = [];
     let matchLink;
     let matchCode;
@@ -116,7 +116,7 @@ class MarkdownParser implements IMarkdownParserProperties {
           attributes: {
             readOnly: true,
             style: {
-              height: `${30 * numberLines.length}px`,
+              height: `${25 * numberLines.length - 1}px`,
             },
           },
         });
@@ -137,9 +137,8 @@ class MarkdownParser implements IMarkdownParserProperties {
       const newLinesArray = [];
       let startCode = false;
       let codeContent = "";
-
       for (let i = 0; i < linesArray.length; i++) {
-        if (linesArray[i] === "```") {
+        if (linesArray[i].includes("```")) {
           if (startCode === false) {
             // début du bloc de code
             startCode = true;
@@ -149,6 +148,7 @@ class MarkdownParser implements IMarkdownParserProperties {
             startCode = false;
             codeContent += "```";
             newLinesArray.push(codeContent);
+            codeContent = "";
           }
         } else if (startCode) {
           // ajout du contenu du code avec marquage du retour à la ligne
