@@ -25,11 +25,7 @@ const ArticleContainer = async (props: IArticleContainer) => {
     const htmlElements = data.map((element) => {
       return createReactChild(element);
     });
-    return (
-      <Box p="10">
-        <Box p="10">{htmlElements}</Box>
-      </Box>
-    );
+    return <Box p="6">{htmlElements}</Box>;
   } catch (error) {
     console.error(error);
     return <div>Erreur de récupération du contenu</div>;
