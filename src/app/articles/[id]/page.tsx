@@ -41,7 +41,7 @@ export default async function Page({
   try {
     const { id } = await params;
     const path = `${process.cwd()}/${process.env.FOLDER_ARTICLES}${id}/page.md`;
-    return <ArticleContainer path={path} />;
+    return <ArticleContainer path={path} name={id} />;
   } catch (error) {
     console.error(error);
     notFound();

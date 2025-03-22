@@ -21,25 +21,13 @@ h3 {
   line-height: 1.4;
 }
 
-h4 {
+h4,
+h5,
+h6 {
   font-size: 1em;
-  font-weight: normal;
+  font-weight: bold;
   margin: 1em 0;
   line-height: 1.4;
-}
-
-h5 {
-  font-size: 0.83em;
-  font-weight: normal;
-  margin: 1em 0;
-  line-height: 1.5;
-}
-
-h6 {
-  font-size: 0.67em;
-  font-weight: normal;
-  margin: 1em 0;
-  line-height: 1.5;
 }
 
 a {
