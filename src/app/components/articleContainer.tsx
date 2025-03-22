@@ -6,6 +6,7 @@ import { createReactChild } from "../lib/reactUtils";
 
 interface IArticleContainer {
   path: string; //path where locate article data
+  name: string;
 }
 
 /**
@@ -20,6 +21,7 @@ const ArticleContainer = async (props: IArticleContainer) => {
     const markdownParser = new MarkdownParser({
       nextLineCharacter,
       rawData,
+      contextMediaPath: `./${props.name}/`,
     });
     const data = markdownParser.getParsedData();
     const htmlElements = data.map((element) => {
@@ -32,7 +34,7 @@ const ArticleContainer = async (props: IArticleContainer) => {
     return <Box p="6">{htmlElements}</Box>;
   } catch (error) {
     console.error(error);
-    return <div>Erreur de récupération du contenu</div>;
+    return <div>Erreur de récupération du contenu pour {props.name}</div>;
   }
 };
 
