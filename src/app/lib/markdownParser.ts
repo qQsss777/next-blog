@@ -1,7 +1,8 @@
+import crypto from "crypto";
 export type IParsedData = {
   textType: keyof HTMLElementTagNameMap;
   content: string;
-  attributes?: Record<string, unknown>;
+  attributes: Record<string, unknown>;
   children?: IParsedData[];
 };
 
@@ -42,6 +43,9 @@ class MarkdownParser implements IMarkdownParserProperties {
         textType,
         content: children && children.length > 0 ? "" : content,
         children: children,
+        attributes: {
+          key: crypto.randomUUID(),
+        },
       });
     });
     return parsedData;
@@ -90,6 +94,9 @@ class MarkdownParser implements IMarkdownParserProperties {
       if (matchLink) {
         const lineSplitted = lineData.split(matchLink[0]);
         elements.push({
+          attributes: {
+            key: crypto.randomUUID(),
+          },
           textType: "span",
           content: lineSplitted.shift() as string,
         });
@@ -97,6 +104,7 @@ class MarkdownParser implements IMarkdownParserProperties {
           textType: "a",
           content: matchLink[1],
           attributes: {
+            key: crypto.randomUUID(),
             href: matchLink[2],
             target: "_blank",
           },
@@ -105,6 +113,7 @@ class MarkdownParser implements IMarkdownParserProperties {
       } else if (matchCode) {
         const lineSplitted = lineData.split(matchCode[0]);
         elements.push({
+          attributes: { key: crypto.randomUUID() },
           textType: "span",
           content: lineSplitted.shift() as string,
         });
@@ -114,6 +123,7 @@ class MarkdownParser implements IMarkdownParserProperties {
           textType: "textarea",
           content: codes,
           attributes: {
+            key: crypto.randomUUID(),
             readOnly: true,
             style: {
               height: `${25 * numberLines.length - 1}px`,

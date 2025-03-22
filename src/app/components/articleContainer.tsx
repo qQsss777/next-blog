@@ -23,7 +23,11 @@ const ArticleContainer = async (props: IArticleContainer) => {
     });
     const data = markdownParser.getParsedData();
     const htmlElements = data.map((element) => {
-      return createReactChild(element);
+      return (
+        <Box key={element.attributes.key as string}>
+          {createReactChild(element)}
+        </Box>
+      );
     });
     return <Box p="6">{htmlElements}</Box>;
   } catch (error) {
