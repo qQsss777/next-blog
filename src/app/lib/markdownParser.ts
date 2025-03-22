@@ -245,7 +245,7 @@ class MarkdownParser implements IMarkdownParserProperties {
     dataArrayReference.push({
       attributes: {
         key: crypto.randomUUID(),
-        href: contextPath + imageName,
+        src: contextPath + imageName,
         alt: values[1],
       },
       textType: "img",
