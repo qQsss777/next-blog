@@ -9,7 +9,7 @@ export default async function Home() {
   try {
     const homePath = `${process.cwd()}/${process.env.FOLDER_HOME}page.md`;
     const articlesPath = `${process.cwd()}/${process.env.FOLDER_ARTICLES}`;
-    const defaultImage = "/assets/default.jpg";
+    const defaultImage = "./assets/default.jpg";
     const getCardInfos = await getArticlesStructure(
       articlesPath,
       process.env.THUMBNAIL as string,
