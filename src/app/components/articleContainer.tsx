@@ -21,7 +21,7 @@ const ArticleContainer = async (props: IArticleContainer) => {
     const markdownParser = new MarkdownParser({
       nextLineCharacter,
       rawData,
-      contextMediaPath: `./${props.name}/`,
+      contextMediaPath: `./${props.name}/medias/`,
     });
     const data = markdownParser.getParsedData();
     const htmlElements = data.map((element) => {

@@ -5,17 +5,16 @@ import path from "path";
 
 const basePath = process.cwd();
 const folderArticles = basePath + process.env.FOLDER_ARTICLES;
-const folderElement = folderArticles.split('/').filter((v)=> v)
-const lastArticlePath = folderElement.pop();
+const folderElement = path.basename(folderArticles)
 const mediasFolderName = "medias";
-const distFolder = `${basePath}/dist/${lastArticlePath}/`;
+const distFolder = `${basePath}/dist/${folderElement}/`;
 fs.readdir(folderArticles)
   .then((folders) => {
     folders.forEach((folder) => {
       const folderPath = path.join(folderArticles, folder, mediasFolderName);
       fs.access(folderPath)
         .then(() => {
-            fs.cp(folderPath, distFolder + folder, {recursive: true})
+            fs.cp(folderPath, path.join(distFolder,folder, mediasFolderName), {recursive: true})
         })
         .catch((error) => {
           console.log(error);

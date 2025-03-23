@@ -6,9 +6,15 @@ interface IHeaderProps {
   title: string;
   articles: string[];
   rootPath: string;
+  contextPath: string;
 }
 
-export default function Header({ title, articles }: IHeaderProps) {
+export default function Header({
+  title,
+  articles,
+  rootPath,
+  contextPath,
+}: IHeaderProps) {
   return (
     <>
       <Box
@@ -25,9 +31,9 @@ export default function Header({ title, articles }: IHeaderProps) {
           <Flex align="center" gap="5">
             <DrawerLink
               title="Lien vers les articles"
-              rootPath="/"
+              rootPath={rootPath}
               linkTitles={articles}
-              contextPath={"/articles/"}
+              contextPath={contextPath}
             />
             {title}
           </Flex>
