@@ -57,6 +57,7 @@ jobs:
           touch .env
           echo FOLDER_HOME=${{ secrets.FOLDER_HOME }} >> .env
           echo FOLDER_ARTICLES=${{ secrets.FOLDER_ARTICLES }} >> .env
+          echo THUMBNAIL=${{ secrets.THUMBNAIL }} >> .env
           cat .env
 
       - name: Build
