@@ -12,7 +12,7 @@ export default async function Home() {
     const defaultImage = "/assets/default.jpg";
     const getCardInfos = await getArticlesStructure(
       articlesPath,
-      process.env.THUMBNAIL as stringc,
+      process.env.THUMBNAIL as string,
     );
     return (
       <Box>
