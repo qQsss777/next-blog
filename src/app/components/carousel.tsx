@@ -1,4 +1,5 @@
 import { Box, Button, Card, Flex, Image } from "@chakra-ui/react";
+import Link from "next/link";
 
 export interface ICardInfos {
   title: string;
@@ -32,10 +33,14 @@ export default function Carousel({ defaultThumbnail, cards }: IHeaderProps) {
                   alt={card.title}
                 />
                 <Card.Body gap="2">
-                  <Card.Title mt="2">{card.title}</Card.Title>
+                  <Card.Title mt="2" textAlign="center">
+                    {card.title}
+                  </Card.Title>
                 </Card.Body>
-                <Card.Footer justifyContent="flex-end">
-                  <Button variant="outline">View</Button>
+                <Card.Footer justifyContent="center">
+                  <Link href={card.path}>
+                    <Button variant="outline">Lire</Button>
+                  </Link>
                 </Card.Footer>
               </Card.Root>
             );
