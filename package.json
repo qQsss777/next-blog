@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "update": "git submodule update --recursive --remote",
     "test": "echo en cours",
     "build": "next build",
     "build:prod": "npm run build && node scripts/copyMedia.js",
