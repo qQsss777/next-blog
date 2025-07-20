@@ -170,18 +170,13 @@ class MarkdownParser implements IMarkdownParserProperties {
       textType: "span",
       content: lineSplitted.shift() as string,
     });
-    const numberLines = values[1].split("<br>");
     const codes = values[1].replaceAll("<br>", "\r");
     dataArrayReference.push({
-      textType: "textarea",
+      textType: "code-block" as keyof HTMLElementTagNameMap,
       content: null,
       attributes: {
-        defaultValue: codes,
+        code: codes,
         key: crypto.randomUUID(),
-        readOnly: true,
-        style: {
-          height: `${25 * numberLines.length - 1}px`,
-        },
       },
     });
     return lineSplitted.join(",");
