@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { getFileAsString } from "../lib/directoryUtils";
 import MarkdownParser from "../lib/markdownParser";
 import React from "react";
-import { createReactChild } from "../lib/reactUtils";
+import HTMLContent from "./htmlContentClientOnly";
 
 interface IArticleContainer {
   path: string; //path where locate article data
@@ -26,9 +26,7 @@ const ArticleContainer = async (props: IArticleContainer) => {
     const data = markdownParser.getParsedData();
     const htmlElements = data.map((element) => {
       return (
-        <Box key={element.attributes.key as string}>
-          {createReactChild(element)}
-        </Box>
+        <HTMLContent key={element.attributes.key as string} element={element} />
       );
     });
     return <Box p="6">{htmlElements}</Box>;

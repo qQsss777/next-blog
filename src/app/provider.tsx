@@ -2,8 +2,6 @@
 
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { ThemeProvider } from "next-themes";
-//register web component
-import "@qqsss777/oul-web-components";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
